@@ -2,8 +2,7 @@
 Extended use of mysql2. Besides it don't depends on mysql2, it was build uppon this usage as found below.
 
 [![npm][npm]][npm-url]
-[![appveyor][appveyor]][appveyor-url]
-[![stability][stability]][stability-url]
+[![dependencies][dependencies]][dependencies]
 
 ## Install
 ```bash
@@ -124,8 +123,5 @@ conn.release();
 [npm]: https://img.shields.io/npm/v/ext-mysql.svg
 [npm-url]: https://npmjs.com/package/ext-mysql
 
-[appveyor]: https://ci.appveyor.com/api/projects/status/hucvow1n0t3q3le3/branch/master?svg=true
-[appveyor-url]: https://ci.appveyor.com/project/adriancmiranda/ext-mysql/branch/master
-
-[stability]: http://badges.github.io/stability-badges/dist/experimental.svg
-[stability-url]: https://cdn.meme.am/cache/instances/folder481/500x/9689481.jpg
+[dependencies]: https://david-dm.org/webdefault/ext-mysql.svg
+[dependencies-url]: https://david-dm.org/webdefault/ext-mysql
