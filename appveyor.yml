@@ -1,4 +1,7 @@
 # Test against the latest version of this Node.js version
+version: '{build}'
+image: Ubuntu
+
 environment:
   nodejs_version: "8"
 
