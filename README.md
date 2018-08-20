@@ -108,6 +108,12 @@ conn.update( 'table', [{balance:0}, {cost:["cost >= ?", 100]] );
 ```
 The `cost:` (the attribute's name) is ignored, only the array part is used to build the query `["cost >= ?", 100]`.
 
+## Release connection
+After your use you must release your connection.
+```javascript
+conn.release();
+```
+
 [SQLiteDatabase]: https://github.com/aosp-mirror/platform_frameworks_base/blob/master/core/java/android/database/sqlite/SQLiteDatabase.java
 
 [npm]: https://badge.fury.io/js/ext-mysql.svg
