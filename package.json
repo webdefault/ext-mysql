@@ -1,0 +1,23 @@
+{
+  "name": "ext-mysql",
+  "version": "0.1.0",
+  "description": "Extended application of mysql2",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/webdefault/ext-mysql.git"
+  },
+  "keywords": [
+    "mysql2",
+    "extended"
+  ],
+  "author": "Orlando Leite",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/webdefault/ext-mysql/issues"
+  },
+  "homepage": "https://github.com/webdefault/ext-mysql#readme"
+}
