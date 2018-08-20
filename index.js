@@ -4,7 +4,6 @@ class MySQL
 {
 	constructor()
 	{
-		
 		this.transactionCounter = 0;
 		this.transactionSuccess = 0;
 	}
@@ -15,7 +14,7 @@ class MySQL
 		if( !this.conn.isInTransaction )
 		{
 			this.conn.isInTransaction = false;
-			await this.conn( 'SET CHARACTER SET ' + process.env.ENCODE );
+			await this.conn.query( 'SET CHARACTER SET ' + process.env.ENCODE );
 			// if( timezone ) this._pdo.exec( 'SET @@session.time_zone = "'.timezone.'"' );
 		}
 		
@@ -79,7 +78,7 @@ class MySQL
 	{
 		if( MySQL.LOGGER )
 		{
-			LOGGER( text );
+			MySQL.LOGGER( text );
 		} 
 	}
 	
@@ -91,7 +90,7 @@ class MySQL
 				sql + ";\n" +
 				( values ? 'BIND: ' + values : '' ) + "\n";
 			
-			LOGGER( value );
+			MySQL.LOGGER( value );
 			// fs.appendFile( process.env.LOG_PATH + "/" + this.logFile + "."+ filestamp + ".log", value, (err) => {if (err) throw err;});
 		} 
 	}
@@ -397,9 +396,21 @@ MySQL.POOL = null;
 MySQL.LOGGER = null;
 MySQL.CREATE_POOL = function(values)
 {
+	if( values == null )
+	{
+		values = {
+			host: process.env.MYSQL_HOSTNAME,
+			user: process.env.MYSQL_USER,
+			password: process.env.MYSQL_PASSWORD,
+			database: process.env.MYSQL_DATABASE,
+			waitForConnections: true,
+			connectionLimit: 10,
+			queueLimit: 0
+		}
+	}
 	// Set the pool for connections.
 	const m2 = require('mysql2');
-	MySQL.POOL = m2.createPool(values);
+	return MySQL.POOL = m2.createPool(values);
 }
 
 module.exports = MySQL;

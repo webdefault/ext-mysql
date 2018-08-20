@@ -39,7 +39,8 @@ var conn = new MySQL();
 await conn.init();
 
 // Just like you'd do without it, plus, you have log
-await conn.execute( 'select * from table where id = ?', [10] );
+const [rows, fields] = await conn.execute( 'select * from table where id = ?', [10] );
+console.log( rows )
 ```
 
 ### Insert
@@ -104,10 +105,9 @@ conn.delete( 'table', [{name:John}, {name:Mary}] );
 ### Custom values
 You may need custom set of value for an insert or update, even a delete.
 ```javascript
-// UPDATE table SET balance = 0 WHERE cost >= 100
-conn.update( 'table', [{balance:0}, {cost:["cost >= ?", 100]] );
+// UPDATE table SET balance = balance + 10 WHERE cost >= 100
+conn.update( 'table', [{balance:["balance + ?", 10}, {cost:[">= ?", 100]] );
 ```
-The `cost:` (the attribute's name) is ignored, only the array part is used to build the query `["cost >= ?", 100]`.
 
 ### Release connection
 After your use you must release your connection.
