@@ -14,10 +14,10 @@ npm i --save ext-mysql
 A wrapper for mysql2 connection. Or any other connection that works like mysql2 pool and connections.
 ```javascript
 const MySQL = require('ext-mysql');
-const m2 = require('mysql2');
 
-// Set the pool for connections.
-MySQL.POOL = m2.createPool({
+// Create a pool for connections using the default way. 
+// Or, you can set one `MySQL.POOL = myMysql2CreatedPool;`
+MySQL.CREATE_POOL({
   host: 'localhost',
   user: 'root',
   database: 'test',
@@ -25,6 +25,8 @@ MySQL.POOL = m2.createPool({
   connectionLimit: 10,
   queueLimit: 0
 });
+
+
 
 // You can set a logger for your connections.
 // Each query you request calls logger.
