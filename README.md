@@ -13,11 +13,11 @@ npm i --save ext-mysql
 ## Use
 A wrapper for mysql2 connection. Or any other connection that works like mysql2 pool and connections.
 ```javascript
-const mql = require('mql-mysql');
-const mysql = require('mysql2');
+const MySQL = require('ext-mysql');
+const m2 = require('mysql2');
 
 // Set the pool for connections.
-mql.MySQL.POOL = mysql.createPool({
+MySQL.POOL = m2.createPool({
   host: 'localhost',
   user: 'root',
   database: 'test',
@@ -31,7 +31,7 @@ mql.MySQL.POOL = mysql.createPool({
 MySQL.LOGGER = console.info;
 
 // Create a instance.
-var conn = new mql.MySQL();
+var conn = new MySQL();
 
 // Here it calls POOL.getConnection().
 // Set ENCODE from process.env.ENCODE
