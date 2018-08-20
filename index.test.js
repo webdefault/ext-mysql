@@ -1,6 +1,6 @@
 const MySQL = require('./');
 
-test('Create POOL', async () => 
+test('Create POOL', async function()
 {
 	process.env.ENCODE = "utf8";
 	process.env.MYSQL_HOSTNAME = "localhost";
@@ -12,25 +12,25 @@ test('Create POOL', async () =>
 	// MySQL.LOGGER = console.log;
 });
 
-test('Create MySQL object', async () => 
+test('Create MySQL object', async function() 
 {
 	expect( conn = new MySQL() ).not.toBeNull();
 });
 
 
-test('Init db connection', async () => 
+test('Init db connection', async function()
 {
 	expect( await conn.init() ).not.toBeNull();
 });
 
-test('Selection', async () => 
+test('Selection', async function()
 {
 	const [rows, fields] = await conn.execute( "SELECT 1 + 3 as r1, ? as r2", [10] );
 	expect( rows.length ).toBe(1);
 	expect( rows ).toEqual([{ r1:4, r2:10 }]);
 });
 
-test('Create table', async () => 
+test('Create table', async function()
 {
 	const [rows, fields] = await conn.execute( 
 		"CREATE TABLE IF NOT EXISTS `test_table` (\
@@ -42,7 +42,7 @@ test('Create table', async () =>
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;" );
 });
 
-test('Insert', async () => 
+test('Insert', async function()
 {
 	[results, ids] = await conn.insert( "test_table", [{name:"John", age:27, gender:1}, {name:"Mary", age:32, gender:2}] );
 	expect( ids.length ).toBe(2);
@@ -54,7 +54,7 @@ test('Insert', async () =>
 		{ id:ids[1], name:"Mary", age:32, gender:2 }]);
 });
 
-test('Update', async () => 
+test('Update', async function()
 {
 	const result = await conn.update( "test_table", {age:["age + ?", 1]}, { id:[" >= ?", ids[0]] } );
 	expect( result.affectedRows ).toBe(2);
@@ -66,7 +66,7 @@ test('Update', async () =>
 		{ id:ids[1], name:"Mary", age:33, gender:2 }]);
 });
 
-test('Delete', async () => 
+test('Delete', async function()
 {
 	const result = await conn.delete( "test_table", [{ id:[">= ?", ids[0]] }] );
 	expect( result.affectedRows ).toBe(2);
@@ -75,17 +75,17 @@ test('Delete', async () =>
 	expect( rows.length ).toBe(0);
 });
 
-test('Drop table', async () => 
+test('Drop table', async function()
 {
 	const result = await conn.execute( "DROP TABLE test_table" );
 });
 
-test('Release connection', async () => 
+test('Release connection', async function()
 {
 	expect( await conn.release() ).not.toBeNull();
 });
 
-test('End pool', async () => 
+test('End pool', async function()
 {
 	expect( await MySQL.POOL.end() ).not.toBeNull();
 });
