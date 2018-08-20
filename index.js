@@ -11,7 +11,7 @@ class MySQL
 	
 	async init()
 	{
-		MySQL.POOL = conn.createConnection();
+		this.conn = await MySQL.POOL.promise().getConnection();
 		if( !this.conn.isInTransaction )
 		{
 			this.conn.isInTransaction = false;
@@ -395,7 +395,7 @@ class MySQL
 
 MySQL.POOL = null;
 MySQL.LOGGER = null;
-MySQL.DEFAULT_INIT_POOL = function(values)
+MySQL.CREATE_POOL = function(values)
 {
 	// Set the pool for connections.
 	const m2 = require('mysql2');
