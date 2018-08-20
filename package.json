@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/webdefault/ext-mysql/issues"
   },
-  "homepage": "https://github.com/webdefault/ext-mysql#readme"
+  "homepage": "https://github.com/webdefault/ext-mysql#readme",
+  "dependencies": {
+    "mysql2": "^1.6.1"
+  }
 }

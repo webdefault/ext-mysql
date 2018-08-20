@@ -1,4 +1,4 @@
-/// const log = require('../log');
+const mysql2 = require('mysql2');
 
 class MySQL
 {
@@ -395,5 +395,11 @@ class MySQL
 
 MySQL.POOL = null;
 MySQL.LOGGER = null;
+MySQL.DEFAULT_INIT_POOL = function(values)
+{
+	// Set the pool for connections.
+	const m2 = require('mysql2');
+	MySQL.POOL = m2.createPool(values);
+}
 
 module.exports = MySQL;
