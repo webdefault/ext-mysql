@@ -1,6 +1,6 @@
 {
   "name": "ext-mysql",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Extended application of mysql2",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "mysql2",
     "extended"
   ],
-  "author": "Orlando Leite",
+  "author": "Orlando Leite <orlando@webdefault.com.br>",
   "license": "GPL-2.0",
   "bugs": {
     "url": "https://github.com/webdefault/ext-mysql/issues"

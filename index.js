@@ -247,7 +247,6 @@ class MySQL
 				var v1 = wheres[k1];
 				
 				var sql = this.createDeleteSQL( table, v1 );
-				console.log( sql );
 				
 				for( var k2 in v1)
 				{
