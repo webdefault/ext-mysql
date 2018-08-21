@@ -8,12 +8,17 @@ class MySQL
 		this.transactionSuccess = 0;
 	}
 	
+	isInited()
+	{
+		return typeof this.conn.connection.isInTransaction != 'undefined';
+	}
+	
 	async init()
 	{
 		this.conn = await MySQL.POOL.promise().getConnection();
-		if( !this.conn.isInTransaction )
+		if( !this.isInited() )
 		{
-			this.conn.isInTransaction = false;
+			this.conn.connection.isInTransaction = false;
 			await this.conn.query( 'SET CHARACTER SET ' + process.env.ENCODE );
 			// if( timezone ) this._pdo.exec( 'SET @@session.time_zone = "'.timezone.'"' );
 		}
@@ -25,9 +30,9 @@ class MySQL
 	{
 		if( this.transactionCounter == 0 )
 		{
-			if( this.conn.isInTransaction ) this.conn.rollback();
+			if( this.conn.connection.isInTransaction ) this.conn.rollback();
 			this.conn.beginTransaction();
-			this.conn.isInTransaction = true;
+			this.conn.connection.isInTransaction = true;
 		}
 		
 		this.transactionSuccess++;
