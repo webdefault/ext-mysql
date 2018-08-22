@@ -1,5 +1,5 @@
 # ext-mysql
-Extended use of mysql2. Besides it don't depends on mysql2, it was build uppon this usage as found below.
+Extended use of mysql2.
 
 [![npm][npm]][npm-url]
 [![dependencies][dependencies]][dependencies-url]
@@ -11,7 +11,7 @@ npm i --save ext-mysql
 ```
 
 ## Usage
-A wrapper for mysql2 connection. Or any other connection that works like mysql2 pool and connections.
+A wrapper for mysql2 connections.
 ```javascript
 const MySQL = require('ext-mysql');
 
