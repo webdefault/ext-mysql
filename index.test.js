@@ -5,7 +5,8 @@ test('Create POOL', async () =>
 	process.env.ENCODE = "utf8";
 	process.env.MYSQL_HOSTNAME = "localhost";
 	process.env.MYSQL_USER = "root";
-	process.env.MYSQL_PASSWORD = "Password12!";
+	if( !process.env.MYSQL_PASSWORD == null ) 
+		process.env.MYSQL_PASSWORD = "Password12!";
 	process.env.MYSQL_DATABASE = "test";
 
 	MySQL.CREATE_POOL();
@@ -40,6 +41,21 @@ test('Create table', async () =>
 		  `gender` tinyint(4) DEFAULT NULL,\
 		  PRIMARY KEY (`id`)\
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;" );
+});
+
+test('Throw syntax error', async () => 
+{
+	var gotError = false;
+	try
+	{
+		var [rows, fields] = await conn.execute( "SELECT test_table FROM test" );
+	}
+	catch( err )
+	{
+		gotError = true;
+	}
+	
+	expect( gotError ).toBe( true );
 });
 
 test('Insert', async () => 

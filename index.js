@@ -79,7 +79,7 @@ class MySQL
 		}
 	}
 
-	slog( text )
+	elog( text )
 	{
 		if( MySQL.LOGGER )
 		{
@@ -97,7 +97,7 @@ class MySQL
 			
 			MySQL.LOGGER( value );
 			// fs.appendFile( process.env.LOG_PATH + "/" + this.logFile + "."+ filestamp + ".log", value, (err) => {if (err) throw err;});
-		} 
+		}
 	}
 
 	/*
@@ -115,7 +115,8 @@ class MySQL
 		}
 		catch( err )
 		{
-			this.log( err );
+			this.elog( err );
+			throw err;
 		}
 	}
 	
@@ -161,7 +162,7 @@ class MySQL
 			}
 			catch ( err )
 			{
-				this.log( err );
+				this.elog( err );
 			}
 			finally
 			{
@@ -227,7 +228,7 @@ class MySQL
 		} 
 		catch ( err )
 		{
-			this.log( err );
+			this.elog( err );
 		}
 		finally
 		{
@@ -278,7 +279,7 @@ class MySQL
 		}
 		catch ( err )
 		{
-			this.log( err );
+			this.elog( err );
 		}
 		finally
 		{
