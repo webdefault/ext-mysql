@@ -118,7 +118,7 @@ conn.release();
 
 ### Select with array group
 Select and build arrays (when you do joins). 
-Consider the columns`_category_id`, `_category_name`. The rows will be grouped and will get a array as columns like `category[{id:X, name:Y}]`.
+Consider the columns`_category_id`, `_category_name`. The rows will be grouped to a column-array (ex: `category[{id:X, name:Y}]`).
 
 ```javascript
 conn.selectWithArray( 
