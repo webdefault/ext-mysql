@@ -119,6 +119,59 @@ class MySQL
             throw err;
         }
     }
+
+    /**
+     * Select and build arrays. Columns `_categories_id`, `_categories_name` => row.categories[{id:X, name:Y}].
+     * @param {string} sql - The query
+     * @param {array} values - The bind values
+     * @params {string} groupBy - The column name used to find a new row (`id`)
+     * @params{object} columns - A list of the columns to build `{ "categories":["id", "name"] }`. The first array`s item will to group it (No duplicated items).
+     */
+    async selectWithArray( sql, values, groupBy, columns )
+    {
+        let [result, fields] = await this.execute( sql, values );
+        console.log( result );
+        let nres = [];
+        let lastRow = {};
+
+        for( let i in columns )
+        {
+            if( !columns[i].list ) columns[i].list = [];
+        }
+
+        for( let row of result )
+        {
+            if( row[groupBy] != lastRow[groupBy] )
+            {
+                nres.push( row );
+                lastRow = row;
+            }
+
+            for( let i in columns )
+            {
+                let col = columns[i];
+
+                if( !lastRow[i] ) lastRow[i] = [];
+
+                let id = row["_" + i + "_" + col[0]];
+                console.log( id  );
+                if( !col.list.includes( id ) )
+                {
+                    col.list.push( id );
+
+                    let obj = {};
+                    for( let j = 0; j < col.length; j++ )
+                    {
+                        obj[col[j]] = row["_" + i + "_" + col[j]];
+                    }
+
+                    lastRow[i].push( obj );
+                }
+            }
+        }
+
+        return [nres, fields];
+    }
     
     /*
      * 	Insere um novo registro

@@ -31,6 +31,50 @@ test('Selection', async () =>
     expect( rows ).toEqual([{ r1:4, r2:10 }]);
 });
 
+test('Selection with array', async () => 
+{
+    const [rows, fields] = await conn.selectWithArray( 
+        `
+        SELECT 1 id, 1 _category_id, "cat 1" _category_name
+        UNION ALL
+        SELECT 1 id, 2 _category_id, "cat 2" _category_name
+        UNION ALL
+        SELECT 1 id, 3 _category_id, "cat 3" _category_name
+        UNION ALL
+        SELECT 1 id, 2 _category_id, "cat 2" _category_name
+        UNION ALL
+        SELECT 2 id, 6 _category_id, "cat 6" _category_name
+        UNION ALL
+        SELECT 2 id, 6 _category_id, "cat 6" _category_name`, 
+        null,
+        'id',
+        { category:["id", "name"] } );
+
+    expect( rows.length ).toBe(2);
+    expect( rows ).toEqual([
+        { 
+            id:1, 
+            category:
+            [
+                { id:1, name:"cat 1" },
+                { id:2, name:"cat 2" },
+                { id:3, name:"cat 3" }
+            ],
+            "_category_id": 1,
+            "_category_name": "cat 1"
+        },
+        { 
+            id:2, 
+            category:[
+            {
+                id:6,
+                name:"cat 6"
+            }],
+            "_category_id": 6,
+            "_category_name": "cat 6"
+        }]);
+});
+
 test('Create table', async () => 
 {
     const [rows, fields] = await conn.execute( 

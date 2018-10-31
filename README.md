@@ -116,6 +116,44 @@ After your use you must release your connection.
 conn.release();
 ```
 
+### Select with array group
+Select and build arrays (when you do joins). 
+Consider the columns`_category_id`, `_category_name`. The rows will be grouped and will get a array as columns like `category[{id:X, name:Y}]`.
+
+```javascript
+conn.selectWithArray( 
+  sql, values,
+  'id', // groupBy - The column name used to find a new row (`id`)
+  { category:["id", "name"] } // columns - A list of the columns to build `{ "categories":["id", "name"] }`. The first array`s item will to group it (No duplicated items).
+  );
+```
+Result (example):
+```bash
+[
+  { 
+    id:1, 
+    category:
+    [
+      { id:1, name:"cat 1" },
+      { id:2, name:"cat 2" },
+      { id:3, name:"cat 3" }
+    ],
+    "_category_id": 1,
+    "_category_name": "cat 1"
+  },
+  { 
+    id:2, 
+    category:[
+    {
+      id:6,
+      name:"cat 6"
+    }],
+    "_category_id": 6,
+    "_category_name": "cat 6"
+  }
+]
+```
+
 [SQLiteDatabase]: https://github.com/aosp-mirror/platform_frameworks_base/blob/master/core/java/android/database/sqlite/SQLiteDatabase.java
 
 [npm]: https://badge.fury.io/js/ext-mysql.svg
