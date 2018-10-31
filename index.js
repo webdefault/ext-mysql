@@ -130,7 +130,7 @@ class MySQL
     async selectWithArray( sql, values, groupBy, columns )
     {
         let [result, fields] = await this.execute( sql, values );
-        console.log( result );
+        
         let nres = [];
         let lastRow = {};
 
@@ -154,7 +154,7 @@ class MySQL
                 if( !lastRow[i] ) lastRow[i] = [];
 
                 let id = row["_" + i + "_" + col[0]];
-                console.log( id  );
+                
                 if( !col.list.includes( id ) )
                 {
                     col.list.push( id );
